@@ -1,6 +1,6 @@
 # General info
 
-Official PHP image extended with a few favorite extensions and packages.
+Based on the official PHP image. Extended with a few favorite extensions and packages.
 
 # Docker Image Tags
 
