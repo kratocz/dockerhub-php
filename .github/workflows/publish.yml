@@ -25,7 +25,6 @@ jobs:
         web_server: ["", "-apache"]
     #runs-on: ubuntu-latest
     runs-on: [self-hosted, linux, x64]
-    environment: production
     steps:
       - name: Set env variables base_image_name, image_name, latest_image_name, latest_php_version
         run: |
