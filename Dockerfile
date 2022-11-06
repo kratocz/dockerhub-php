@@ -17,4 +17,13 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --w
 RUN docker-php-ext-install -j$(nproc) gd
 RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) || pecl install xdebug
 
-FROM v1_3 AS latest
+ARG PHP_IMAGE="php:8.1"
+FROM v1_3 AS v2_0
+
+RUN apt-get purge -y sendmail
+RUN apt-get install -y libmemcached-dev
+RUN pecl install memcached
+RUN docker-php-ext-install -j$(nproc) opcache
+RUN docker-php-ext-enable gd mysqli memcached
+
+FROM v2_0 AS latest
