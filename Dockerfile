@@ -1,6 +1,8 @@
 ARG PHP_IMAGE="php"
 FROM ${PHP_IMAGE} AS v1_2
 
+LABEL org.opencontainers.image.authors="krato@krato.cz"
+
 RUN apt-get update && apt-get install -y mariadb-client openssh-client zlib1g-dev zip libpng-dev libzip-dev
 RUN docker-php-ext-install -j$(nproc) pdo_mysql zip
 
