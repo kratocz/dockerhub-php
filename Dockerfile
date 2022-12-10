@@ -15,7 +15,9 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --w
     || docker-php-ext-configure gd --with-freetype --with-jpeg --with-png \
     || docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install -j$(nproc) gd
-RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) || pecl install xdebug
+RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) \
+    || ( ( echo "${PHP_IMAGE}" | grep "php:7." ) && pecl install xdebug-3.1 ) \
+    || pecl install xdebug
 
 ARG PHP_IMAGE="php"
 FROM v1_3 AS v2_0
