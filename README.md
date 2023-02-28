@@ -1,6 +1,14 @@
 # General info
 
-Based on the official PHP image. Extended with a few favorite extensions and packages.
+Docker image based on the official PHP image. Extended with a few favorite extensions and packages.
+
+# Download
+
+The result of these files are Docker images.
+
+## Built Docker Images
+
+Download one of the auto-built Docker images here: https://hub.docker.com/r/krato/php
 
 # Docker Image Tags
 
