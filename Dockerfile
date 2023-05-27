@@ -30,4 +30,10 @@ RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) || ( pecl install memcached redis &&
 RUN docker-php-ext-install -j$(nproc) opcache
 RUN docker-php-ext-enable gd mysqli
 
-FROM v2_0 AS latest
+FROM v2_0 AS v2_1
+
+RUN test ! -f /usr/sbin/apache2 || a2enmod rewrite remoteip
+
+RUN test ! -f /usr/sbin/apache2 || ( echo "RemoteIPHeader X-Forwarded-For" ; echo "RemoteIPInternalProxy 172.0.0.0/8" ) > /etc/apache2/mods-enabled/remoteip.conf
+
+FROM v2_1 AS latest

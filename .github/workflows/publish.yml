@@ -84,9 +84,20 @@ jobs:
           build-args: PHP_IMAGE=${{ env.base_image_name }}
           tags: |
             ${{ env.image_name }}-2.0
+          target: v2_0
+
+      - name: Build and push Docker image 2.1
+        uses: docker/build-push-action@v3
+        if: ( github.event_name != 'schedule' || steps.base_image_update_check.outputs.needs-updating == 'true' )
+        with:
+          context: .
+          push: ${{ github.ref_name == 'main' }}
+          build-args: PHP_IMAGE=${{ env.base_image_name }}
+          tags: |
+            ${{ env.image_name }}-2.1
             ${{ env.image_name }}-2
             ${{ env.image_name }}
-          target: v2_0
+          target: v2_1
 
       - name: Build and push Docker image latest
         uses: docker/build-push-action@v3
