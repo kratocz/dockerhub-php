@@ -28,7 +28,7 @@ FROM v1_3 AS v2_0
 
 RUN apt-get purge -y sendmail
 RUN apt-get install -y libmemcached-dev
-RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) || ( pecl install memcached && docker-php-ext-enable memcached )
+RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) || ( pecl install memcached --with-libmemcached-dir="/usr" && docker-php-ext-enable memcached )
 RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) || ( pecl install redis && docker-php-ext-enable redis )
 RUN docker-php-ext-install -j$(nproc) opcache
 RUN docker-php-ext-enable gd mysqli
