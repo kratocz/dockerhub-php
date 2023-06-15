@@ -1,3 +1,5 @@
+# Example showing how to test this:
+#   docker build --build-arg PHP_IMAGE=php:8.2 --target v2_1 --tag test:8.2 .
 ARG PHP_IMAGE="php"
 FROM ${PHP_IMAGE} AS v1_2
 
@@ -26,7 +28,8 @@ FROM v1_3 AS v2_0
 
 RUN apt-get purge -y sendmail
 RUN apt-get install -y libmemcached-dev
-RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) || ( pecl install memcached redis && docker-php-ext-enable memcached redis )
+RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) || ( pecl install memcached && docker-php-ext-enable memcached )
+RUN ( echo "${PHP_IMAGE}" | grep "php:5." ) || ( pecl install redis && docker-php-ext-enable redis )
 RUN docker-php-ext-install -j$(nproc) opcache
 RUN docker-php-ext-enable gd mysqli
 
