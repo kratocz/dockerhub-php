@@ -24,6 +24,11 @@ jobs:
         php_version: [7.2, 7.4, 8.1, 8.2]
         web_server: ["", "-apache"]
         os_version: ["", "-bullseye", "-bookworm"]
+        exclude:
+          - php_version: 7.2
+            os: ["-bullseye", "-bookworm"]
+          - php_version: 7.4
+            os: "-bookworm"
     runs-on: ubuntu-latest
     #runs-on: [self-hosted, linux, x64]
     #runs-on: [linux, x64]
