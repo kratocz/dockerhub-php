@@ -37,6 +37,8 @@ https://github.com/kratocz/dockerhub-php/blob/main/Dockerfile
 - *-1, *-2, *-3, ... (e.g. 8.1-apache-1) has fixed set of additional packages (recommended).
 - latest
 
+Note: You can use a tag containing in its name '-bullseye' or '-bookworm' for a specific Linux version.
+
 # Installation and usage
 
 Use the origin image documentation: https://hub.docker.com/_/php
