@@ -26,7 +26,9 @@ jobs:
         os_version: ["", "-bullseye", "-bookworm"]
         exclude:
           - php_version: 7.2
-            os_version: ["-bullseye", "-bookworm"]
+            os_version: "-bullseye"
+          - php_version: 7.2
+            os_version: "-bookworm"
           - php_version: 7.4
             os_version: "-bookworm"
     runs-on: ubuntu-latest
