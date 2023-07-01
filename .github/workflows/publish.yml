@@ -23,14 +23,15 @@ jobs:
       matrix:
         php_version: [7.2, 7.4, 8.1, 8.2]
         web_server: ["", "-apache"]
+        os_version: ["", "-bullseye", "-bookworm"]
     runs-on: ubuntu-latest
     #runs-on: [self-hosted, linux, x64]
     #runs-on: [linux, x64]
     steps:
       - name: Set env variables base_image_name, image_name, latest_image_name, latest_php_version
         run: |
-          echo "base_image_name=library/php:${{ matrix.php_version }}${{ matrix.web_server }}" >> $GITHUB_ENV
-          echo "image_name=${{ secrets.DOCKER_USERNAME }}/php:${{ matrix.php_version }}${{ matrix.web_server }}" >> $GITHUB_ENV
+          echo "base_image_name=library/php:${{ matrix.php_version }}${{ matrix.web_server }}{{ matrix.os_version }}" >> $GITHUB_ENV
+          echo "image_name=${{ secrets.DOCKER_USERNAME }}/php:${{ matrix.php_version }}${{ matrix.web_server }}{{ matrix.os_version }}" >> $GITHUB_ENV
           echo "latest_image_name=${{ secrets.DOCKER_USERNAME }}/php:latest" >> $GITHUB_ENV
           echo "latest_php_version=8.2" >> $GITHUB_ENV
 
@@ -101,7 +102,7 @@ jobs:
 
       - name: Build and push Docker image latest
         uses: docker/build-push-action@v3
-        if: ( github.event_name != 'schedule' || steps.base_image_update_check.outputs.needs-updating == 'true' ) && matrix.php_version == env.latest_php_version && matrix.web_server == ''
+        if: ( github.event_name != 'schedule' || steps.base_image_update_check.outputs.needs-updating == 'true' ) && matrix.php_version == env.latest_php_version && matrix.web_server == '' && matrix.os_version == ''
         with:
           context: .
           push: ${{ github.ref_name == 'main' }}
