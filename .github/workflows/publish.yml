@@ -81,7 +81,7 @@ jobs:
 
       - name: Build and push Docker image 2.0
         uses: docker/build-push-action@v3
-        if: ( github.event_name != 'schedule' || steps.base_image_update_check.outputs.needs-updating == 'true' )
+        if: ( github.event_name != 'schedule' || steps.base_image_update_check.outputs.needs-updating == 'true' ) && matrix.os_version != '-bookworm'
         with:
           context: .
           push: ${{ github.ref_name == 'main' }}
@@ -92,7 +92,7 @@ jobs:
 
       - name: Build and push Docker image 2.1
         uses: docker/build-push-action@v3
-        if: ( github.event_name != 'schedule' || steps.base_image_update_check.outputs.needs-updating == 'true' )
+        if: ( github.event_name != 'schedule' || steps.base_image_update_check.outputs.needs-updating == 'true' ) && matrix.os_version != '-bookworm'
         with:
           context: .
           push: ${{ github.ref_name == 'main' }}
